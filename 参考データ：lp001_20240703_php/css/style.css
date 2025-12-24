@@ -1,0 +1,547 @@
+/* CSS Document */
+html {
+  color: #000;
+  background: #FFF
+}
+
+html, body {
+  height: 100%
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, select, p, blockquote, th, td {
+  margin: 0;
+  padding: 0
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+img {
+  border: 0;
+  vertical-align: bottom;
+  line-height: 0
+}
+
+address, button, caption, cite, code, dfn, em, input, optgroup, option, select, strong, textarea, th, var {
+  font: inherit
+}
+
+li {
+  list-style: none
+}
+
+sup, sub {
+  vertical-align: baseline
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: 'palt' 1;
+  font-feature-settings: 'palt' 1;
+  background: #fff;
+/*   font-size: 27px;
+  line-height: 53px;
+  letter-spacing: .075em */
+}
+
+a, a:link, a:visited {
+  color: #4494d0;
+}
+
+a:hover, a:active {
+  color: #0079d4;
+  cursor: pointer;
+}
+
+.disappear {
+  -webkit-transition: .5s;
+  transition: .5s;
+  opacity: 0
+}
+
+.appear {
+  -webkit-transition: 1s;
+  transition: 1s;
+  opacity: 1
+}
+
+#wrapper {
+  overflow: hidden;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto
+}
+
+#wrapper img {
+  width: 100%;
+  height: auto
+}
+
+sup {
+  font-size: 50%;
+  line-height: 1
+}
+
+.ccv_back_blue{
+  background: #62c4e1;
+}
+
+.cnt {
+  max-width: 750px;
+  position: relative;
+  margin: 0 auto;
+}
+
+#scrpt {
+  display: none
+}
+
+.atte {
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: .05em;
+  color: #818181;
+  padding: 24px 30px 40px;
+  font-weight: 100;
+}
+
+.atte.ccv_back {
+  color: #fff;
+  background-color: #62c4e1;
+  background-size: 100%;
+}
+
+
+#coach {
+  background-color: #01a0e9;
+  background-image: url(../img/slide-bg.png);
+  background-size: 100%;
+}
+.swiper-container{
+  width: 100%;
+}
+.swiper{
+  width: 83%;
+}
+
+.swiper-wrapper{
+}
+.swiper-button-next::after{
+  background: url('img/next-arrow-circle.png') no-repeat center;
+   width: 50px; height: 50px; right: -25px;
+}
+/* --------------------------------- */
+/* ここから矢印のデザインを変更するCSS */
+/* --------------------------------- */
+/* 矢印画像の高さと幅 */
+.swiper-button-prev,
+.swiper-button-next {
+  height: 50px;
+  width: 50px;
+}
+/* 矢印を消して画像に変更する */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+  margin: auto;
+}
+/* 前に戻る矢印の画像パス */
+.swiper-button-prev::after {
+  background-image: url(../img/prev-arrow-circle.png);
+}
+/* 次に進む矢印の画像パス */
+.swiper-button-next::after {
+  background-image: url(../img/next-arrow-circle.png);
+}
+/* --------------------------------- */
+/* 矢印をスライド画像の外に出すためのCSS */
+/* --------------------------------- */
+.slide-img_wrapper{
+  margin: 0 80px;
+}
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+  right: 30px;
+}
+@media screen and (max-width: 500px) {
+  .slide-img_wrapper{
+    margin: 0 40px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  /* 矢印画像の高さと幅 */
+  .swiper-button-prev,
+  .swiper-button-next {
+    height: 39px;
+    width: 39px;
+  }
+  /* デフォルト矢印を消して画像に変更する */
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    height: 39px;
+    width: 39px;
+  }
+}
+
+#zero_area{
+  background-color: #fff;
+  background-image: url(../img/zero_bg.png);
+  background-repeat: repeat-y;
+  background-size: contain;
+  margin: 0 auto;
+}
+
+#zero_area>div>div {
+  width: 94%;
+  margin: -7% auto 0;
+}
+#present_area {
+  background-color: #fff;
+  background-image: url(../img/present_bg.png);
+  background-repeat: repeat-y;
+  background-size: contain;
+  margin: 0 auto;
+}
+
+#present_area>div>div {
+  width: 94%;
+  margin: 0 auto;
+}
+
+
+#qa_area {
+  background-color: #e0f4fc;
+  margin: 0 auto;
+}
+
+#qa_area>div>div {
+  width: 94%;
+  margin: 0 auto;
+}
+.qa-a{
+  margin-top: 1em;
+}
+.qa-q {
+  display: none;
+}
+
+footer {
+  background-color: #00a0e9;
+  width: 100%;
+}
+footer>img {
+  max-width: 100%;
+}
+.footer-nav {
+		display: flex;
+		justify-content: center;
+		margin: 0;
+		padding: 0;
+		font-size: 12px;
+		list-style-type: none;
+}
+
+ .footer-nav li {
+			padding-right: 15px;
+			padding-left: 15px;
+		}
+ .footer-nav li + li {
+      border-left: 1px solid #c9c9c9;
+    }
+
+	.footer-nav a {
+			color: #fff;
+			text-decoration: none;
+      font-weight: bold;
+  }
+  .footer-nav a :hover {
+				text-decoration: underline;
+        cursor: pointer;
+}
+
+.copyright {
+	height: 60px;
+	color: #fff;
+  font-weight: bold;
+	font-size: 12px;
+	line-height: 60px;
+	text-align: center;
+}
+
+
+
+.fix_box {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.fix_box.fixed {
+    position: fixed;
+    bottom: 0;
+    left: auto;
+    z-index: +1;
+    transition: all 0.3s ease 0s;
+    visibility: visible;
+    opacity: 1;
+  }
+.fix_box.fixed.none {
+    opacity: 0;
+    z-index: -1;
+}
+
+.fix_box img {
+  max-width: 100%;
+}
+
+/**
+ * ----------------------------------------
+ * animation bounce-top
+ * ----------------------------------------
+ */
+ .bounce-top {
+	-webkit-animation: bounce-top 1.5s infinite both;
+	        animation: bounce-top 1.5s infinite both;
+}
+
+ @-webkit-keyframes bounce-top {
+  0% {
+    -webkit-transform: translateY(-45px);
+            transform: translateY(-45px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    -webkit-transform: translateY(-24px);
+            transform: translateY(-24px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  65% {
+    -webkit-transform: translateY(-12px);
+            transform: translateY(-12px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  82% {
+    -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  93% {
+    -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+@keyframes bounce-top {
+  0% {
+    -webkit-transform: translateY(-45px);
+            transform: translateY(-45px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    -webkit-transform: translateY(-24px);
+            transform: translateY(-24px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  65% {
+    -webkit-transform: translateY(-12px);
+            transform: translateY(-12px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  82% {
+    -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  93% {
+    -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+
+
+
+
+
+.zoom-in {
+  animation: zoom-in 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: translateY(40px) scale(0.6);
+    opacity: 0;
+  }
+
+  80% {
+    transform: translateY(0) scale(1.0);
+  }
+
+  70%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shiny {
+  0% {
+      transform: scale(0) rotate(25deg);
+      opacity: 0;
+  }
+
+  50% {
+      transform: scale(1) rotate(25deg);
+      opacity: 1;
+  }
+
+  100% {
+      transform: scale(50) rotate(25deg);
+      opacity: 0;
+  }
+}
+
+#app {
+  width: 400px;
+  margin: 40px auto;
+  padding: 28px;
+  line-height: 1.5;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background-color: transparent;
+  box-shadow: 2px 2px 5px 0px rgba(200,200,200,1);
+}
+
+
+
+/* ボタンをキラッとさせる */
+
+.shiny-btn {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.shiny-btn::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  top: 0;
+  left: -100%;
+  background-image: linear-gradient(130deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 75%);
+  /* 【変更部分】inifiniteによりずっと続ける */
+  -webkit-animation: shine 1s infinite;
+          animation: shine 1s infinite;
+}
+@-webkit-keyframes shine {
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes shine {
+  100% {
+    left: 100%;
+  }
+}
+
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1)
+  }
+  50% {
+    -webkit-transform: scale3d(1.075, 1.075, 1.075);
+    transform: scale3d(1.075, 1.075, 1.075)
+  }
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1)
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1)
+  }
+  50% {
+    -webkit-transform: scale3d(1.075, 1.075, 1.075);
+    transform: scale3d(1.075, 1.075, 1.075)
+  }
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1)
+  }
+}
+
+.pulse {
+  -webkit-animation: pulse 1.4s ease 0s infinite normal;
+  animation: pulse 1.4s ease 0s infinite normal
+}

@@ -1,0 +1,605 @@
+/* ベース */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Meiryo", sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.img-block {
+  margin: 0;
+}
+
+.img-overlay {
+  position: relative;
+  margin: 0;
+}
+
+.overlay-img {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* 007-80.jpg の「理解度そのままに」付近に x3up を重ねる（必要ならCSS変数で微調整） */
+.overlay-x3up {
+  --x3up-top: 30%;
+  --x3up-left: 50%;
+  --x3up-width: 60%;
+}
+
+.overlay-x3up .x3up-overlay {
+  top: var(--x3up-top);
+  left: var(--x3up-left);
+  transform: translateX(-50%) translateY(12px);
+  width: var(--x3up-width);
+  max-width: 520px;
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-x3up.is-visible .x3up-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-x3up .x3up-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* 011-80.jpg の白い枠内に logo を重ねる（必要ならCSS変数で微調整） */
+.overlay-logo {
+  --logo-top: 18%;
+  --logo-left: 50%;
+  --logo-width: 78%;
+}
+
+.overlay-logo .logo-overlay {
+  top: var(--logo-top);
+  left: var(--logo-left);
+  width: var(--logo-width);
+  max-width: 560px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-logo.is-visible .logo-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-logo .logo-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* 013-80.jpg の上に eye01 を重ねる（画面中央でフェードアウト：必要ならCSS変数で微調整） */
+.overlay-eye {
+  --eye-top: 3%;
+  --eye-left: 50%;
+  --eye-width: 60%;
+}
+
+.overlay-eye .eye-overlay {
+  top: var(--eye-top);
+  left: var(--eye-left);
+  width: var(--eye-width);
+  max-width: 680px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-eye.is-visible .eye-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-eye .eye-overlay {
+    transition: none;
+  }
+}
+
+/* 015-80.jpg の上部55%に brain01 を重ねる（画面中央でフェードイン） */
+.overlay-brain01 {
+  --brain01-top: 54%;
+  --brain01-left: 50%;
+  --brain01-width: 45%;
+}
+
+.overlay-brain01 .brain01-overlay {
+  top: var(--brain01-top);
+  left: var(--brain01-left);
+  width: var(--brain01-width);
+  max-width: 680px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-brain01.is-visible .brain01-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-brain01 .brain01-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* 016-80.jpg の上部5%に brain02 を重ねる（画面中央でフェードイン） */
+.overlay-brain02 {
+  --brain02-top: 2%;
+  --brain02-left: 50%;
+  --brain02-width: 45%;
+}
+
+.overlay-brain02 .brain02-overlay {
+  top: var(--brain02-top);
+  left: var(--brain02-left);
+  width: var(--brain02-width);
+  max-width: 680px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-brain02.is-visible .brain02-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-brain02 .brain02-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* 019-80.jpg の上部10%に reading01 を重ねる（画面中央でフェードイン） */
+.overlay-reading01 {
+  --reading01-top: 0.5%;
+  --reading01-left: 50%;
+  --reading01-width: 45%;
+}
+
+.overlay-reading01 .reading01-overlay {
+  top: var(--reading01-top);
+  left: var(--reading01-left);
+  width: var(--reading01-width);
+  max-width: 680px;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-reading01.is-visible .reading01-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-reading01 .reading01-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* voice01〜04（受講者の声）：左右寄せ＋画面中央でフェードイン */
+.overlay-voice {
+  --voice-top: 38%;
+  --voice-width: 34%;
+  --voice-offset: 13%;
+}
+
+/* 個別に高さ（top）を変えたい場合はここを調整 */
+.overlay-voice01 {
+  --voice-top: 30%;
+}
+
+.overlay-voice02 {
+  --voice-top: 13%;
+}
+
+.overlay-voice03 {
+  --voice-top: 15%;
+}
+
+.overlay-voice04 {
+  --voice-top: 13%;
+}
+
+.overlay-voice .voice-overlay {
+  top: var(--voice-top);
+  width: var(--voice-width);
+  max-width: 280px;
+  height: auto;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-voice--left .voice-overlay {
+  left: var(--voice-offset);
+}
+
+.overlay-voice--right .voice-overlay {
+  right: var(--voice-offset);
+}
+
+.overlay-voice .voice-overlay.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-voice .voice-overlay {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* 032-80.jpg 上のCTA（常時表示） */
+.overlay-cta2 .cta2-overlay {
+  position: absolute;
+  top: 22%;
+  left: 60%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 520px;
+  z-index: 3;
+  display: block;
+}
+
+.overlay-cta2 .cta2-overlay img {
+  width: 100%;
+  height: auto;
+}
+
+/* 033-80.jpg 上のCTA（テキスト＋ボタン、常時表示） */
+.overlay-cta33 .cta33-content {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+  width: 86%;
+  max-width: 680px;
+  z-index: 3;
+  text-align: center;
+}
+
+.overlay-cta33 .cta33-text {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 10px;
+}
+
+.overlay-cta33 .cta33-btn {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.overlay-cta33 .cta33-btn img {
+  width: 100%;
+  height: auto;
+}
+
+/* 022-80.jpg の上に benefit01〜04 を重ねる */
+.overlay-benefits .benefit01-overlay,
+.overlay-benefits .benefit02-overlay,
+.overlay-benefits .benefit03-overlay,
+.overlay-benefits .benefit04-overlay {
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+  will-change: opacity, transform;
+}
+
+.overlay-benefits .benefit01-overlay.is-visible,
+.overlay-benefits .benefit02-overlay.is-visible,
+.overlay-benefits .benefit03-overlay.is-visible,
+.overlay-benefits .benefit04-overlay.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-benefits .benefit01-overlay,
+  .overlay-benefits .benefit02-overlay,
+  .overlay-benefits .benefit03-overlay,
+  .overlay-benefits .benefit04-overlay {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+.overlay-benefits .benefit01-overlay {
+  top: 3%;
+  width: 80%;
+  max-width: 620px;
+}
+
+.overlay-benefits .benefit02-overlay {
+  top: 37%;
+  width: 90%;
+  max-width: 520px;
+}
+
+.overlay-benefits .benefit03-overlay {
+  top: 62%;
+  width: 80%;
+  max-width: 520px;
+}
+
+.overlay-benefits .benefit04-overlay {
+  top: 87%;
+  width: 80%;
+  max-width: 520px;
+}
+
+/* トレーニング：背景つきアコーディオン */
+.training-accordion {
+  background-image: url(../img/back2-80.jpg);
+  /* coverだと要素高さで拡大率/トリミングが変わるため、幅は合わせて縦方向に延長する */
+  background-repeat: repeat-y;
+  background-position: center top;
+  /* back2-80.jpg(751x1453) を縦に継ぎ足し。高さをpx固定して継ぎ目の白線も出にくくする */
+  background-size: 100% 1453px;
+  background-color: #fff;
+  padding: 20px 0 28px;
+}
+
+.training-accordion__toggle {
+  display: block;
+  width: min(720px, 88%);
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.training-accordion__toggle:focus-visible {
+  outline: 3px solid rgba(11, 53, 100, 0.5);
+  outline-offset: 4px;
+}
+
+.training-accordion__toggle-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.training-accordion__toggle-img--open {
+  display: none;
+}
+
+.training-accordion.is-open .training-accordion__toggle-img--close {
+  display: none;
+}
+
+.training-accordion.is-open .training-accordion__toggle-img--open {
+  display: block;
+}
+
+.training-accordion__panel {
+  width: min(720px, 88%);
+  margin: 0 auto;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 320ms ease, opacity 240ms ease;
+}
+
+.training-accordion.is-open .training-accordion__panel {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .training-accordion__panel {
+    transition: none;
+  }
+}
+
+.img-overlay .cta-overlay {
+  position: absolute;
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 9%;
+  width: 70%;
+  max-width: 520px;
+  z-index: 2;
+  display: block;
+}
+
+.cta-overlay img {
+  width: 100%;
+}
+
+.cta-overlay-inner {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.shiny-btn {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: block;
+}
+
+.shiny-btn::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  top: 0;
+  left: -100%;
+  background-image: linear-gradient(130deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 75%);
+  animation: shine 1s infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.shiny-btn img {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes shine {
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.075, 1.075, 1.075);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  animation: pulse 1.4s ease 0s infinite normal;
+  transform-origin: center;
+}
+
+/* CTA */
+.cta-block {
+  padding: 24px 16px 32px;
+  background: #f4fbff;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.cta-btn {
+  display: block;
+  margin: 12px auto 0;
+  width: 100%;
+  max-width: 640px;
+}
+
+.cta-btn img {
+  width: 100%;
+}
+
+/* フッター */
+footer {
+  padding: 32px 16px 48px;
+  background: #0B3564;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+footer ul {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 0;
+  margin: 0 0 12px;
+  list-style: none;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* 追従CTA */
+.fixed-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%) translateY(8px);
+  width: 90vw;
+  max-width: 750px;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 50;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s linear 240ms;
+}
+
+.fixed-cta.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s linear 0s;
+}
+
+.fixed-cta img {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  body {
+    background: #e9eff3;
+  }
+
+  #wrapper {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+}
