@@ -14,14 +14,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="description" content="">
   <title>LP</title>
-  <link rel="preload" as="image" href="img/training1open.png">
-  <link rel="preload" as="image" href="img/training1close.png">
-  <link rel="preload" as="image" href="img/training2open.png">
-  <link rel="preload" as="image" href="img/training2close.png">
-  <link rel="preload" as="image" href="img/training3open.png">
-  <link rel="preload" as="image" href="img/training3close.png">
-  <link rel="preload" as="image" href="img/training4open.png">
-  <link rel="preload" as="image" href="img/training4close.png">
+  <!-- アコーディオンのopen画像はクリック直後に必要になるため、初期表示を邪魔しない低優先で先読み -->
+  <link rel="prefetch" as="image" href="img/training1open.png">
+  <link rel="prefetch" as="image" href="img/training2open.png">
+  <link rel="prefetch" as="image" href="img/training3open.png">
+  <link rel="prefetch" as="image" href="img/training4open.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -36,7 +33,7 @@
       <div class="img-block"><img src="img/001-80.jpg" alt=""></div>
       <div class="img-block"><img src="img/002-80.jpg" alt=""></div>
       <div class="img-overlay">
-        <a class="cta-overlay" href="#form">
+        <a class="cta-overlay" href="https://lin.ee/dOVG8NV">
           <span class="cta-overlay-inner shiny-btn pulse">
             <img src="img/cta_btn.png" alt="無料オンライン体験に申し込む">
           </span>
@@ -69,7 +66,7 @@
           <img class="training-accordion__toggle-img training-accordion__toggle-img--open" src="img/training1open.png" alt="広く見るためのトレーニング（閉じる）" loading="eager" decoding="async">
         </button>
         <div id="training1-panel" class="training-accordion__panel js-accordion-panel" aria-hidden="true">
-          <img src="img/training1contents.png" alt="" loading="lazy">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="img/training1contents.png" alt="" loading="lazy" decoding="async">
         </div>
       </section>
 
@@ -79,7 +76,7 @@
           <img class="training-accordion__toggle-img training-accordion__toggle-img--open" src="img/training2open.png" alt="情報を瞬時に理解するトレーニング（閉じる）" loading="eager" decoding="async">
         </button>
         <div id="training2-panel" class="training-accordion__panel js-accordion-panel" aria-hidden="true">
-          <img src="img/training2contents.png" alt="" loading="lazy">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="img/training2contents.png" alt="" loading="lazy" decoding="async">
         </div>
       </section>
 
@@ -97,7 +94,7 @@
           <img class="training-accordion__toggle-img training-accordion__toggle-img--open" src="img/training3open.png" alt="情報を瞬時に理解するトレーニング（閉じる）" loading="eager" decoding="async">
         </button>
         <div id="training3-panel" class="training-accordion__panel js-accordion-panel" aria-hidden="true">
-          <img src="img/training3contents.png" alt="" loading="lazy">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="img/training3contents.png" alt="" loading="lazy" decoding="async">
         </div>
       </section>
 
@@ -113,7 +110,7 @@
           <img class="training-accordion__toggle-img training-accordion__toggle-img--open" src="img/training4open.png" alt="イメージ処理力・記憶力を高めるトレーニング（閉じる）" loading="eager" decoding="async">
         </button>
         <div id="training4-panel" class="training-accordion__panel js-accordion-panel" aria-hidden="true">
-          <img src="img/training4contents.png" alt="" loading="lazy">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="img/training4contents.png" alt="" loading="lazy" decoding="async">
         </div>
       </section>
 
@@ -134,7 +131,7 @@
         <img src="img/022-80.jpg" alt="" loading="lazy">
       </div>
       <div class="img-overlay">
-        <a class="cta-overlay" href="#form">
+        <a class="cta-overlay" href="https://lin.ee/dOVG8NV">
           <span class="cta-overlay-inner shiny-btn pulse">
             <img src="img/cta_btn.png" alt="無料オンライン体験に申し込む">
           </span>
@@ -163,7 +160,7 @@
       <div class="img-block"><img src="img/030-80.jpg" alt="" loading="lazy"></div>
       <div class="img-block"><img src="img/031-80.jpg" alt="" loading="lazy"></div>
       <div class="img-overlay overlay-cta2">
-        <a class="cta2-overlay" href="#form">
+        <a class="cta2-overlay" href="https://lin.ee/dOVG8NV">
           <img src="img/cta_btn2.png" alt="無料オンライン体験に申し込む" loading="eager" decoding="async">
         </a>
         <img src="img/032-80.jpg" alt="" loading="lazy">
@@ -171,14 +168,14 @@
       <div class="img-overlay overlay-cta33">
         <div class="cta33-content">
           <img class="cta33-text pulse" src="img/cta_btn_txt1.png" alt="" aria-hidden="true" loading="eager" decoding="async">
-          <a class="cta33-btn pulse" href="#form">
+          <a class="cta33-btn pulse" href="https://online.cre-sokudoku.co.jp/application/">
             <img src="img/cta_btn3.png" alt="無料オンライン体験に申し込む" loading="eager" decoding="async">
           </a>
         </div>
         <img src="img/033-80.jpg" alt="" loading="lazy">
       </div>
       <div class="img-overlay">
-        <a class="cta-overlay" href="#form">
+        <a class="cta-overlay" href="https://lin.ee/dOVG8NV">
           <span class="cta-overlay-inner shiny-btn pulse">
             <img src="img/cta_btn.png" alt="無料オンライン体験に申し込む">
           </span>
@@ -191,15 +188,14 @@
 
     <footer>
       <ul>
-        <li><a href="#form">お問い合わせ</a></li>
-        <li><a href="https://genronkai.com/privacy-policy/" target="_blank" rel="noopener">プライバシーポリシー</a></li>
+        <li><a href="https://www.cre-sokudoku.co.jp/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a></li>
       </ul>
       <p>© <span id="year"></span> CREATE SOKUDOKU SCHOOL All rights reserved.</p>
     </footer>
   </div>
 
   <div class="fixed-cta" id="fixed-cta">
-    <a href="#form">
+    <a href="https://lin.ee/dOVG8NV">
       <img src="img/cta_btn.png" alt="無料オンライン体験に申し込む">
     </a>
   </div>

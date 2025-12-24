@@ -8,18 +8,6 @@
   }
 
   onReady(() => {
-    // スムーススクロール
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (e) {
-        const targetId = this.getAttribute('href');
-        if (!targetId) return;
-        const target = document.querySelector(targetId);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
     // 追従CTA表示（指定画像までスクロールしたら表示）
     const fixedCta = document.getElementById('fixed-cta');
     const triggerImg = document.querySelector('img[src="img/004-80.jpg"], img[src="img/005-80.jpg"]');
@@ -53,87 +41,128 @@
     });
     window.addEventListener('scroll', updateFixedCta, { passive: true });
 
-    // オーバーレイ画像：画像自身が画面中央に来たら1回だけフェードイン
-    function setupOneTimeCenterFade(sectionSelector, imgSelector) {
-      const section = document.querySelector(sectionSelector);
-      const img = document.querySelector(imgSelector);
-      if (!section || !img) return;
-
-      let ticking = false;
-
-      function update() {
-        ticking = false;
-        if (section.classList.contains('is-visible')) return;
-        const rect = img.getBoundingClientRect();
-        const centerY = window.innerHeight * 0.7;
-        const hit = rect.top <= centerY && rect.bottom >= centerY;
-        if (hit) {
-          section.classList.add('is-visible');
-          window.removeEventListener('scroll', requestUpdate);
-          window.removeEventListener('resize', requestUpdate);
+    // フッターが見えている間は追従CTAを隠す（プライバシーポリシーが押せるように）
+    const footerEl = document.querySelector('footer');
+    if (fixedCta && footerEl && 'IntersectionObserver' in window) {
+      const footerObserver = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          fixedCta.classList.toggle('is-hidden-by-footer', Boolean(entry && entry.isIntersecting));
+        },
+        {
+          root: null,
+          threshold: 0.01,
         }
-      }
-
-      function requestUpdate() {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(update);
-      }
-
-      update();
-      window.addEventListener('scroll', requestUpdate, { passive: true });
-      window.addEventListener('resize', requestUpdate);
+      );
+      footerObserver.observe(footerEl);
     }
 
-    // 要素自身：画面中央ライン(デフォルト)に来たら1回だけクラス付与（benefitなど複数要素向け）
-    function setupOneTimeViewportLineClass(elSelector, className = 'is-visible', lineRatio = 0.5) {
-      const el = document.querySelector(elSelector);
-      if (!el) return;
+    // オーバーレイのフェードイン（スクロール監視を一括で軽量化）
+    // - IntersectionObserver を使い、画面内の「指定ライン」（例: 0.5=中央, 0.7=下寄り）を横切ったら1回だけ表示
+    (function setupOverlayReveal() {
+      const canUseIO = 'IntersectionObserver' in window;
+      const bandHeightPct = 1; // 画面高さに対して 1% の帯を「トリガーライン」として使う
 
-      let ticking = false;
+      function rootMarginForLineRatio(lineRatio) {
+        const top = -(lineRatio * 100);
+        const bottom = -(100 - lineRatio * 100 - bandHeightPct);
+        return `${top}% 0px ${bottom}% 0px`;
+      }
 
-      function update() {
-        ticking = false;
-        if (el.classList.contains(className)) return;
-        const rect = el.getBoundingClientRect();
-        const lineY = window.innerHeight * lineRatio;
-        const hit = rect.top <= lineY && rect.bottom >= lineY;
-        if (hit) {
-          el.classList.add(className);
-          window.removeEventListener('scroll', requestUpdate);
-          window.removeEventListener('resize', requestUpdate);
+      const ioByRatio = new Map();
+      const handlerByEl = new WeakMap();
+
+      function observeAtLine(el, lineRatio, onHit) {
+        if (!el) return;
+        if (canUseIO) {
+          let io = ioByRatio.get(lineRatio);
+          if (!io) {
+            io = new IntersectionObserver(
+              (entries, obs) => {
+                for (const entry of entries) {
+                  if (!entry.isIntersecting) continue;
+                  const handler = handlerByEl.get(entry.target);
+                  if (handler) handler(entry.target);
+                  handlerByEl.delete(entry.target);
+                  obs.unobserve(entry.target);
+                }
+              },
+              {
+                root: null,
+                threshold: 0,
+                rootMargin: rootMarginForLineRatio(lineRatio),
+              }
+            );
+            ioByRatio.set(lineRatio, io);
+          }
+          handlerByEl.set(el, onHit);
+          io.observe(el);
+          return;
+        }
+
+        // Fallback: IntersectionObserver が無い場合は 1つのscroll/resize でまとめてチェック
+        fallbackItems.push({ el, lineRatio, onHit });
+      }
+
+      const fallbackItems = [];
+      let fallbackTicking = false;
+      function runFallbackCheck() {
+        fallbackTicking = false;
+        if (!fallbackItems.length) return;
+        for (let i = fallbackItems.length - 1; i >= 0; i--) {
+          const item = fallbackItems[i];
+          const rect = item.el.getBoundingClientRect();
+          const lineY = window.innerHeight * item.lineRatio;
+          const hit = rect.top <= lineY && rect.bottom >= lineY;
+          if (hit) {
+            item.onHit(item.el);
+            fallbackItems.splice(i, 1);
+          }
         }
       }
-
-      function requestUpdate() {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(update);
+      function requestFallbackCheck() {
+        if (fallbackTicking) return;
+        fallbackTicking = true;
+        window.requestAnimationFrame(runFallbackCheck);
       }
 
-      update();
-      window.addEventListener('scroll', requestUpdate, { passive: true });
-      window.addEventListener('resize', requestUpdate);
-    }
+      // 0.7ライン：セクションに is-visible を付ける（既存CSSに合わせる）
+      [
+        '.overlay-x3up',
+        '.overlay-logo',
+        '.overlay-eye',
+        '.overlay-brain01',
+        '.overlay-brain02',
+        '.overlay-reading01',
+      ].forEach((sectionSel) => {
+        const section = document.querySelector(sectionSel);
+        const img = section ? section.querySelector('.overlay-img') : null;
+        if (!section || !img) return;
+        observeAtLine(img, 0.7, () => section.classList.add('is-visible'));
+      });
 
-    setupOneTimeCenterFade('.overlay-x3up', '.overlay-x3up .x3up-overlay');
-    setupOneTimeCenterFade('.overlay-logo', '.overlay-logo .logo-overlay');
-    setupOneTimeCenterFade('.overlay-eye', '.overlay-eye .eye-overlay');
-    setupOneTimeCenterFade('.overlay-brain01', '.overlay-brain01 .brain01-overlay');
-    setupOneTimeCenterFade('.overlay-brain02', '.overlay-brain02 .brain02-overlay');
-    setupOneTimeCenterFade('.overlay-reading01', '.overlay-reading01 .reading01-overlay');
+      // 0.5ライン：要素自身に is-visible を付ける（benefit/voice）
+      [
+        '.overlay-voice01 .voice01-overlay',
+        '.overlay-voice02 .voice02-overlay',
+        '.overlay-voice03 .voice03-overlay',
+        '.overlay-voice04 .voice04-overlay',
+        '.overlay-benefits .benefit01-overlay',
+        '.overlay-benefits .benefit02-overlay',
+        '.overlay-benefits .benefit03-overlay',
+        '.overlay-benefits .benefit04-overlay',
+      ].forEach((elSel) => {
+        const el = document.querySelector(elSel);
+        if (!el) return;
+        observeAtLine(el, 0.5, (target) => target.classList.add('is-visible'));
+      });
 
-    // voice01〜04：左右寄せのテキストを、画面中央に来たら1回だけフェードイン
-    setupOneTimeViewportLineClass('.overlay-voice01 .voice01-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-voice02 .voice02-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-voice03 .voice03-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-voice04 .voice04-overlay', 'is-visible', 0.5);
-
-    // benefit01〜04：各画像が画面中央に来たら1回だけフェードイン
-    setupOneTimeViewportLineClass('.overlay-benefits .benefit01-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-benefits .benefit02-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-benefits .benefit03-overlay', 'is-visible', 0.5);
-    setupOneTimeViewportLineClass('.overlay-benefits .benefit04-overlay', 'is-visible', 0.5);
+      if (!canUseIO && fallbackItems.length) {
+        runFallbackCheck();
+        window.addEventListener('scroll', requestFallbackCheck, { passive: true });
+        window.addEventListener('resize', requestFallbackCheck);
+      }
+    })();
 
     // アコーディオン（トレーニング）
     function setupAccordion(rootSelector = '.js-accordion') {
@@ -158,10 +187,20 @@
           img.addEventListener('load', refreshPanelHeight, { once: true });
         });
 
+        function loadDeferredImages() {
+          panel.querySelectorAll('img[data-src]').forEach((img) => {
+            const src = img.getAttribute('data-src');
+            if (!src) return;
+            img.setAttribute('src', src);
+            img.removeAttribute('data-src');
+          });
+        }
+
         function open() {
           root.classList.add('is-open');
           toggle.setAttribute('aria-expanded', 'true');
           panel.setAttribute('aria-hidden', 'false');
+          loadDeferredImages();
           refreshPanelHeight();
         }
 
