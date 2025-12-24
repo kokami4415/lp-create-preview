@@ -450,9 +450,9 @@ img {
   top: auto;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 9%;
-  width: 70%;
-  max-width: 520px;
+  bottom: 7%;
+  width: 78%;
+  max-width: 580px;
   z-index: 2;
   display: block;
 }
