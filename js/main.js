@@ -182,17 +182,20 @@
           panel.style.maxHeight = `${panel.scrollHeight}px`;
         }
 
-        // コンテンツ画像が読み込まれたら高さを更新（途中で切れないように）
-        panel.querySelectorAll('img').forEach((img) => {
-          img.addEventListener('load', refreshPanelHeight, { once: true });
-        });
-
         function loadDeferredImages() {
           panel.querySelectorAll('img[data-src]').forEach((img) => {
             const src = img.getAttribute('data-src');
             if (!src) return;
+
+            // 本画像の読み込み完了後に高さを再計算（プレースホルダーのloadでリスナーが消えるのを防ぐ）
+            img.addEventListener('load', refreshPanelHeight, { once: true });
             img.setAttribute('src', src);
             img.removeAttribute('data-src');
+
+            // decode可能ならデコード完了後にも再計算（表示途中で切れないように）
+            if (typeof img.decode === 'function') {
+              img.decode().then(refreshPanelHeight).catch(() => {});
+            }
           });
         }
 
